@@ -6,8 +6,6 @@ import path from "node:path";
 
 const execAsync = promisify(exec);
 
-const WORKSPACE = process.cwd();
-
 const ALLOWED_COMMANDS = [
   "pwd",
   "ls",
@@ -54,7 +52,7 @@ export const terminalTool = tool(
       }
 
       const { stdout, stderr } = await execAsync(cmd, {
-        cwd: WORKSPACE,
+        cwd: process.cwd(),
         timeout: 30000,
         maxBuffer: 10 * 1024 * 1024,
       });
@@ -62,7 +60,7 @@ export const terminalTool = tool(
       return JSON.stringify({
         success: true,
         command: cmd,
-        cwd: WORKSPACE,
+        cwd: process.cwd(),
         stdout,
         stderr,
       });
@@ -70,7 +68,7 @@ export const terminalTool = tool(
       return JSON.stringify({
         success: false,
         command,
-        cwd: WORKSPACE,
+        cwd: process.cwd(),
         error: err.message,
         stdout: err.stdout ?? "",
         stderr: err.stderr ?? "",

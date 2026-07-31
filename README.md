@@ -2,6 +2,8 @@
 
 A terminal-based AI agent powered by **LangChain** + **LangGraph** that can browse the web, run code, read/write files, fetch YouTube transcripts, read PDFs, and more — all from your command line.
 
+It installs as a **global CLI** (`agentic`) so you can run it from **any project** on your machine and use the file/terminal tools against that project's folder.
+
 ## Features
 
 - **Web Search** — Ask about current events (powered by Tavily)
@@ -49,13 +51,43 @@ GMAIL_USER="your.email@gmail.com"
 GMAIL_APP_PASSWORD="your_16_char_app_password"
 ```
 
+> Note: the original key names `WEB_SEARCH_API`, `NODEMAILER_USER`, and `NODEMAILER_APP_PASSWORD` are also accepted.
+
+### Install as a global CLI
+
+To use `agentic` from any project folder on your machine:
+
+```bash
+bun link
+```
+
+Then put your API keys in a global config file so they're available in every project (a project's own `.env` overrides it if present):
+
+```bash
+mkdir -p ~/.config/agentic
+cp .env ~/.config/agentic/.env   # or create it manually with the keys above
+```
+
+You can now run `agentic` from anywhere. It is **not** added to your project — run it inside a project folder and it works on that folder, then just stop using it there. To remove it from your machine entirely:
+
+```bash
+bun unlink agentic_ai_node
+```
+
 ## Usage
 
 ```bash
-bun run index.ts
+agentic                              # interactive chat in the current folder
+agentic "explain this repo" -c       # one-shot question with project context
+agentic -c                           # interactive chat with project context
+echo "question" | agentic            # pipe a question / file content
+agentic --cwd /path/to/project "..." # run as if inside another folder
+agentic --help                       # all options
 ```
 
-You'll see an interactive prompt:
+The `-c`/`--context` flag injects the current directory, git branch/status, top-level files, and `package.json` summary so the agent can understand any repo.
+
+Running `agentic` (or `bun run index.ts`) gives you an interactive prompt:
 
 ```
 🤖 AI Assistant
@@ -89,7 +121,7 @@ Press **Esc** or **Ctrl+C** to exit.
 
 ```
 agentic_ai_node/
-├── index.ts                # Entry point
+├── index.ts                # CLI entry point (chat / one-shot / stdin / context)
 ├── agent/                  # LangGraph agent graph
 │   ├── conditions.ts       # Conditional edge logic (tool routing)
 │   ├── graph.ts            # State graph definition
@@ -113,12 +145,13 @@ agentic_ai_node/
 │   ├── wikipedia.ts        # Wikipedia lookup
 │   └── youtube-transcript.ts # YouTube caption fetcher
 ├── utils/
-│   ├── chat.ts             # Interactive CLI chat loop
+│   ├── chat.ts             # invokeAgent / runOnce / interactive chat loop
 │   ├── checkpointer.ts     # MemorySaver checkpointing
-│   ├── env.ts              # Environment variable loader
+│   ├── env.ts              # Env loader (global config + project .env)
+│   ├── project-context.ts  # cwd / git / file-tree context builder
 │   └── error-handler.ts    # HTTP error code formatter
 ├── .env                    # API keys (not committed)
-├── package.json
+├── package.json            # bin: agentic, scripts
 └── tsconfig.json
 ```
 
