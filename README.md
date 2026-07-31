@@ -1,3 +1,5 @@
+![Alt text](image.png)
+
 # agentic_ai_node
 
 A terminal-based AI agent powered by **LangChain** + **LangGraph** that can browse the web, run code, read/write files, fetch YouTube transcripts, read PDFs, and more — all from your command line.
@@ -101,19 +103,19 @@ Type your question and the agent will decide which tools to use:
 
 ### Example prompts per tool
 
-| Tool | Example prompt |
-|---|---|
-| **Web Search** | `what's the latest news about AI?` |
-| **URL Reader** | `read the content of https://example.com` |
-| **PDF Reader** | `extract text from ./document.pdf` or `read this PDF: https://example.com/doc.pdf` |
-| **YouTube Transcript** | `get the transcript of https://youtube.com/watch?v=dQw4w9WgXcQ` |
-| **Gmail** | `send an email to john@example.com saying the project is done` |
-| **Calendar** | `schedule a meeting tomorrow at 2pm for 1 hour called "Sprint Review"` or `list my upcoming events` |
-| **Calculator** | `calculate 15% of 340` |
-| **File System** | `list files in the current directory` or `read src/index.ts` |
-| **Terminal** | `run git status` or `show me the node version` |
-| **Wikipedia** | `what is the capital of France?` |
-| **Date/Time** | `what time is it in Tokyo?` |
+| Tool                   | Example prompt                                                                                      |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| **Web Search**         | `what's the latest news about AI?`                                                                  |
+| **URL Reader**         | `read the content of https://example.com`                                                           |
+| **PDF Reader**         | `extract text from ./document.pdf` or `read this PDF: https://example.com/doc.pdf`                  |
+| **YouTube Transcript** | `get the transcript of https://youtube.com/watch?v=dQw4w9WgXcQ`                                     |
+| **Gmail**              | `send an email to john@example.com saying the project is done`                                      |
+| **Calendar**           | `schedule a meeting tomorrow at 2pm for 1 hour called "Sprint Review"` or `list my upcoming events` |
+| **Calculator**         | `calculate 15% of 340`                                                                              |
+| **File System**        | `list files in the current directory` or `read src/index.ts`                                        |
+| **Terminal**           | `run git status` or `show me the node version`                                                      |
+| **Wikipedia**          | `what is the capital of France?`                                                                    |
+| **Date/Time**          | `what time is it in Tokyo?`                                                                         |
 
 Press **Esc** or **Ctrl+C** to exit.
 
